@@ -30,9 +30,6 @@ export function HeatmapCalendar() {
           if (value.count <= 4) return 'fill-indigo-500'
           return 'fill-indigo-400'
         }}
-        tooltipDataAttrs={(value: any) =>
-          value?.date ? { 'data-tip': `${value.date}: ${value.count} attempt(s)` } : {}
-        }
       />
     </div>
   )

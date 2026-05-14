@@ -1,8 +1,5 @@
 import { useParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
-import CalendarHeatmap from 'react-calendar-heatmap'
-import 'react-calendar-heatmap/dist/styles.css'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { supabase } from '../../../lib/supabase'
 
 export function FriendProfile() {

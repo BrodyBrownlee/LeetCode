@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown'
 import MonacoEditor from '@monaco-editor/react'
 import { useProblem } from '../hooks/useProblems'
 import { Badge } from '../../../components/ui/Badge'
-import { Button } from '../../../components/ui/Button'
 import type { Difficulty } from '../../../lib/db-types'
 
 const difficultyColor: Record<Difficulty, 'green' | 'yellow' | 'red'> = {
@@ -44,9 +43,12 @@ export function ProblemDetail() {
             )}
           </div>
         </div>
-        <Button asChild size="sm">
-          <Link to="/problems/new">Log attempt</Link>
-        </Button>
+        <Link
+          to="/problems/new"
+          className="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-medium hover:bg-indigo-500 transition-colors"
+        >
+          Log attempt
+        </Link>
       </div>
 
       <div className="space-y-4">
