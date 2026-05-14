@@ -21,10 +21,13 @@ export type Database = {
           created_at?: string
         }
         Update: {
+          id?: string
           username?: string
           display_name?: string | null
           avatar_url?: string | null
+          created_at?: string
         }
+        Relationships: []
       }
       problems: {
         Row: {
@@ -52,6 +55,8 @@ export type Database = {
           created_at?: string
         }
         Update: {
+          id?: string
+          user_id?: string
           leetcode_number?: number | null
           title?: string
           url?: string | null
@@ -59,7 +64,17 @@ export type Database = {
           ease_factor?: number
           current_interval_days?: number
           next_review_at?: string | null
+          created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'problems_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
       attempts: {
         Row: {
@@ -85,12 +100,32 @@ export type Database = {
           solution_language?: string | null
         }
         Update: {
+          id?: string
+          problem_id?: string
+          user_id?: string
+          solved_at?: string
           time_spent_minutes?: number | null
           confidence?: Confidence
           notes?: string | null
           solution_code?: string | null
           solution_language?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: 'attempts_problem_id_fkey'
+            columns: ['problem_id']
+            isOneToOne: false
+            referencedRelation: 'problems'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'attempts_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
       tags: {
         Row: {
@@ -104,8 +139,19 @@ export type Database = {
           name: string
         }
         Update: {
+          id?: string
+          user_id?: string | null
           name?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'tags_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
       problem_tags: {
         Row: {
@@ -116,7 +162,26 @@ export type Database = {
           problem_id: string
           tag_id: string
         }
-        Update: Record<string, never>
+        Update: {
+          problem_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'problem_tags_problem_id_fkey'
+            columns: ['problem_id']
+            isOneToOne: false
+            referencedRelation: 'problems'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'problem_tags_tag_id_fkey'
+            columns: ['tag_id']
+            isOneToOne: false
+            referencedRelation: 'tags'
+            referencedColumns: ['id']
+          },
+        ]
       }
       friendships: {
         Row: {
@@ -134,8 +199,28 @@ export type Database = {
           created_at?: string
         }
         Update: {
+          id?: string
+          requester_id?: string
+          addressee_id?: string
           status?: FriendshipStatus
+          created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'friendships_requester_id_fkey'
+            columns: ['requester_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'friendships_addressee_id_fkey'
+            columns: ['addressee_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {
@@ -148,13 +233,16 @@ export type Database = {
           total_problems_solved: number
           current_streak: number
         }
+        Relationships: []
       }
     }
+    Functions: Record<string, { Args: Record<string, unknown>; Returns: unknown }>
     Enums: {
       difficulty: Difficulty
       confidence: Confidence
       friendship_status: FriendshipStatus
     }
+    CompositeTypes: Record<string, Record<string, unknown> | null>
   }
 }
 

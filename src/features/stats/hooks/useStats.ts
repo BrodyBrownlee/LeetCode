@@ -21,7 +21,7 @@ export function useTagBreakdown() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('problem_tags')
-        .select('tag_id, tags(name), problems(difficulty)')
+        .select('tag_id, tags(name)')
       if (error) throw error
 
       const counts: Record<string, { name: string; count: number }> = {}

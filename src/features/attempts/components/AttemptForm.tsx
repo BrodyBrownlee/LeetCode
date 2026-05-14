@@ -6,7 +6,6 @@ import MonacoEditor from '@monaco-editor/react'
 import { ConfidencePicker } from './ConfidencePicker'
 import { Input } from '../../../components/ui/Input'
 import { Button } from '../../../components/ui/Button'
-import type { Confidence } from '../../../lib/db-types'
 
 const LANGUAGES = ['python', 'javascript', 'typescript', 'java', 'cpp', 'go', 'rust']
 

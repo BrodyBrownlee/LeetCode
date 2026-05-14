@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 import { useProblems } from '../hooks/useProblems'
 import { useTags } from '../../tags/hooks/useTags'
 import { Badge } from '../../../components/ui/Badge'
-import { Button } from '../../../components/ui/Button'
 import type { Difficulty } from '../../../lib/db-types'
 
 const difficultyColor: Record<Difficulty, 'green' | 'yellow' | 'red'> = {
@@ -31,9 +30,12 @@ export function ProblemList() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-white">Problems</h1>
-        <Button as={Link} asChild>
-          <Link to="/problems/new">Log a problem</Link>
-        </Button>
+        <Link
+          to="/problems/new"
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-500 transition-colors"
+        >
+          Log a problem
+        </Link>
       </div>
 
       <div className="flex gap-3">
